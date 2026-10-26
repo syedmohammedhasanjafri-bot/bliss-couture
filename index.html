@@ -22,6 +22,9 @@
 </head>
 <body>
 
+  <!-- ═══ THREE.JS 3D WEBGL CANVAS ═══ -->
+  <canvas id="webglCanvas" class="webgl-canvas" aria-hidden="true"></canvas>
+
   <!-- ═══ SCROLL PROGRESS BAR ═══ -->
   <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
@@ -580,7 +583,11 @@
     </div>
   </footer>
 
-  <!-- Lenis Smooth Scroll CDN -->
+  <!-- Three.js 3D WebGL Library & Custom Engine -->
+  <script src="assets/three.min.js"></script>
+  <script src="three-scene.js"></script>
+
+  <!-- Lenis Smooth Scroll CDN & Interactive Engine -->
   <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
   <script src="script.js"></script>
 </body>
