@@ -4,18 +4,7 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Float } from '@react-three/drei';
 import * as THREE from 'three';
 import Lenis from 'lenis';
-import {
-  Menu,
-  X,
-  RotateCw,
-  Sparkles,
-  ExternalLink,
-  ChevronRight,
-  Phone,
-  Mail,
-  Instagram,
-  Check
-} from 'lucide-react';
+import { Menu, X, RotateCw, Sparkles } from 'lucide-react';
 
 /* ═══ 3D LEHENGA MESH COMPONENT (React Three Fiber) ═══ */
 function Lehenga3DModel({ fabric, embroidery, hue }) {
@@ -231,7 +220,7 @@ export default function App() {
       embroidery: 'Zardozi, Pearl Cluster',
       ghera: '18-Kali Flared',
       hours: '1,200+',
-      img: 'assets/lookbook/look-01-champagne.jpg',
+      img: '/assets/lookbook/look-01-champagne.jpg',
     },
     {
       num: '02',
@@ -241,7 +230,7 @@ export default function App() {
       embroidery: 'Shisha, Resham, Gold Wire',
       ghera: '20-Kali Circular',
       hours: '1,600+',
-      img: 'assets/lookbook/look-02-haldi.jpg',
+      img: '/assets/lookbook/look-02-haldi.jpg',
     },
     {
       num: '03',
@@ -251,7 +240,7 @@ export default function App() {
       embroidery: 'Silver Zardozi, Dabka',
       ghera: '22-Kali Panelled',
       hours: '2,000+',
-      img: 'assets/lookbook/look-03-rani.jpg',
+      img: '/assets/lookbook/look-03-rani.jpg',
     },
     {
       num: '04',
@@ -261,7 +250,7 @@ export default function App() {
       embroidery: 'Kundan Jaal, Gold Zardozi',
       ghera: '20-Kali Gathered',
       hours: '1,800+',
-      img: 'assets/lookbook/look-04-kesariya.jpg',
+      img: '/assets/lookbook/look-04-kesariya.jpg',
     },
     {
       num: '05',
@@ -271,7 +260,7 @@ export default function App() {
       embroidery: 'Gold Zardozi, Chandi Zari',
       ghera: '22-Kali Panelled',
       hours: '2,200+',
-      img: 'assets/lookbook/look-05-nilambari.jpg',
+      img: '/assets/lookbook/look-05-nilambari.jpg',
     },
     {
       num: '06',
@@ -283,7 +272,7 @@ export default function App() {
       embroidery: 'Zardozi, Dabka, Resham, Kundan',
       ghera: '24-Kali Full Circle',
       hours: '3,600+',
-      img: 'assets/lookbook/look-06-sindoor.jpg',
+      img: '/assets/lookbook/look-06-sindoor.jpg',
     },
   ];
 
@@ -306,7 +295,7 @@ export default function App() {
   };
 
   return (
-    <div className="bg-[#F5F2EB] text-[#16120E] min-h-screen selection:bg-[#6E141B] selection:text-[#FAF8F5]">
+    <div className="bg-[#F5F2EB] text-[#16120E] min-h-screen selection:bg-[#D4AF37] selection:text-[#16120E]">
       {/* ═══ NAVIGATION BAR ═══ */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-[#F5F2EB]/90 backdrop-blur-md border-b border-[#E5E0D5]/70 transition-all">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
@@ -430,7 +419,7 @@ export default function App() {
             >
               <div className="relative border border-[#E5E0D5] p-3 bg-white/60 shadow-lg">
                 <img
-                  src="assets/hero.jpg"
+                  src="/assets/hero.jpg"
                   alt="Bliss Couture Flagship Zardozi Bridal Lehenga"
                   className="w-full h-auto object-cover max-h-[640px]"
                   loading="eager"
@@ -501,7 +490,7 @@ export default function App() {
                 <div
                   key={look.num}
                   className={`bg-white border transition-all ${
-                    look.flagship ? 'border-[#6E141B] shadow-md' : 'border-[#E5E0D5] hover:border-[#9C7238]'
+                    look.flagship ? 'border-[#D4AF37] shadow-md ring-1 ring-[#D4AF37]/40' : 'border-[#E5E0D5] hover:border-[#9C7238]'
                   }`}
                 >
                   <div className="relative aspect-[3/4] overflow-hidden bg-[#FAF8F5]">
@@ -543,7 +532,7 @@ export default function App() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className={`block text-center py-2.5 text-xs uppercase tracking-widest transition-colors ${
-                        look.flagship ? 'bg-[#6E141B] text-[#FAF8F5] hover:bg-[#520E14]' : 'border border-[#16120E] hover:bg-[#16120E] hover:text-[#FAF8F5]'
+                        look.flagship ? 'bg-[#16120E] text-[#FAF8F5] hover:bg-[#9C7238]' : 'border border-[#16120E] hover:bg-[#16120E] hover:text-[#FAF8F5]'
                       }`}
                     >
                       Reserve Look
@@ -850,7 +839,7 @@ export default function App() {
               </div>
 
               <div className="p-6 bg-[#F5F2EB] border border-[#E5E0D5] space-y-2">
-                <span className="font-mono text-xs uppercase text-[#6E141B] tracking-widest">For NRI Brides</span>
+                <span className="font-mono text-xs uppercase text-[#9C7238] tracking-widest font-semibold">For NRI Brides</span>
                 <p className="text-xs text-[#5C554E] leading-relaxed">
                   We offer dedicated WhatsApp sessions with fabric swatches shipped worldwide, real-time Adda frame progress photos, and insured international shipping.
                 </p>
