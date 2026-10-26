@@ -1,32 +1,45 @@
 /* ════════════════════════════════════════════════════════════
    BLISS COUTURE — Bridal Zardozi Atelier
-   Design System & Stylesheet
+   Design System & Stylesheet (3D Perspective Engine & Systematic Typographic Hierarchy)
    "Luxury in its Purest Form — Crafting Timeless Bridal Dreams."
    ════════════════════════════════════════════════════════════ */
 
 /* ═══ DESIGN TOKENS ═══ */
 :root {
-  /* Daylight Couture Palette */
-  --canvas:    #F8F5EE;
-  --surface:   #EFEAE0;
-  --ink:       #14110F;
-  --muted:     #6A6359;
-  --timber:    #2A1A12;
-  --zardozi:   #8E652E;
-  --crimson:   #6E141B;
-  --hairline:  #DCD5C7;
+  /* Refined Daylight Couture Palette */
+  --canvas:        #FAF8F5;   /* Pure Ivory Silk Canvas */
+  --surface:       #F3EFE6;   /* Raw Adda Linen Surface */
+  --ink:           #16120E;   /* Deep Charcoal Soot Ink */
+  --muted:         #6B6256;   /* Aged Parchment */
+  --timber:        #26160F;   /* Adda Teak Frame */
+  --zardozi:       #9C7238;   /* Royal Antique Zari Gold */
+  --zardozi-glow:  #C4974C;   /* Shimmering Bullion Gold */
+  --crimson:       #78141F;   /* Vadodara Sindoor Velvet */
+  --hairline:      #E2DBD0;   /* Delicate Silk Weave Grid Line */
+  --focus-ring:    rgba(156, 114, 56, 0.4);
 
-  /* Typography */
+  /* Systematic 8-Step Modular Typography Scale (Issue 5: ≤ 10 tokens) */
+  --text-xs:    0.75rem;   /* 12px: Labels, Badges, Navigation metadata, Footers */
+  --text-sm:    0.875rem;  /* 14px: Craft specs, Secondary copy */
+  --text-base:  1rem;      /* 16px: Primary body copy, Form inputs */
+  --text-md:    1.25rem;   /* 20px: Subtitles, Process titles, Card titles */
+  --text-lg:    1.5rem;    /* 24px: Craft titles, Citations */
+  --text-xl:    2rem;      /* 32px: Patron counters, Stat metrics */
+  --text-2xl:   clamp(2.25rem, 4.5vw, 3.5rem); /* Section headlines */
+  --text-3xl:   clamp(3rem, 6vw, 5.25rem);       /* Hero display typography */
+
+  /* Typography Families */
   --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
   --font-body:    'Outfit', 'Segoe UI', system-ui, sans-serif;
   --font-mono:    'JetBrains Mono', 'Consolas', monospace;
 
-  /* Sizing */
+  /* Sizing & Layout */
   --max-width:  1400px;
-  --gutter:     clamp(1.25rem, 4vw, 3rem);
+  --gutter:     clamp(1.5rem, 4vw, 3rem);
   --section-py: clamp(4rem, 10vh, 8rem);
 
-  /* Transitions */
+  /* 3D Motion Physics & Transitions */
+  --perspective: 1200px;
   --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --duration:   0.7s;
@@ -50,6 +63,7 @@ html {
 body {
   font-family: var(--font-body);
   font-weight: 300;
+  font-size: var(--text-base);
   color: var(--ink);
   background-color: var(--canvas);
   line-height: 1.6;
@@ -84,7 +98,8 @@ button {
 
 .btn:focus-visible,
 .nav-cta:focus-visible,
-.mobile-nav-cta:focus-visible {
+.mobile-nav-cta:focus-visible,
+.look-swatch:focus-visible {
   outline: 2px solid var(--zardozi);
   outline-offset: 2px;
 }
@@ -96,15 +111,15 @@ button {
   left: 0;
   width: 0%;
   height: 2px;
-  background: var(--zardozi);
+  background: linear-gradient(90deg, var(--zardozi), var(--zardozi-glow));
   z-index: 9999;
   transition: width 0.05s linear;
 }
 
-/* ═══ CHAPTER INDEX (Fixed Right Side) ═══ */
+/* ═══ CHAPTER INDEX (Fixed Right Side - Issues 20 & 21) ═══ */
 .chapter-index {
   position: fixed;
-  right: clamp(1rem, 2.5vw, 2.5rem);
+  right: clamp(1.75rem, 3.5vw, 3.5rem); /* Increased right margin for breathing room */
   top: 50%;
   transform: translateY(-50%);
   z-index: 100;
@@ -116,7 +131,7 @@ button {
 
 .chapter-counter {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: var(--text-xs);
   letter-spacing: 0.15em;
   color: var(--muted);
   display: flex;
@@ -133,53 +148,59 @@ button {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.5rem;
   align-items: flex-end;
 }
 
 .chapter-item a {
   font-family: var(--font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.18em;
+  font-size: var(--text-xs); /* Legible 12px min for accessibility */
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--muted);
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+  padding: 0.4rem 0.6rem; /* Enforce comfortable accessible hit area */
+  border-radius: 2px;
   transition: color var(--duration-fast) var(--ease-out),
-              opacity var(--duration-fast) var(--ease-out);
-  opacity: 0.5;
+              opacity var(--duration-fast) var(--ease-out),
+              background var(--duration-fast) var(--ease-out);
+  opacity: 0.6;
 }
 
 .chapter-item a:hover {
   color: var(--ink);
   opacity: 1;
+  background: rgba(156, 114, 56, 0.06);
 }
 
 .chapter-item.active a {
   color: var(--ink);
   opacity: 1;
+  font-weight: 500;
 }
 
 .chapter-num {
   font-weight: 500;
+  color: var(--zardozi);
 }
 
 .scroll-percent {
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: var(--text-xs);
   letter-spacing: 0.15em;
   color: var(--muted);
 }
 
-/* ═══ HEADER ═══ */
+/* ═══ HEADER (Issue 14 & 22) ═══ */
 .site-header {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 200;
-  background: rgba(248, 245, 238, 0.92);
+  background: rgba(250, 248, 245, 0.94);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--hairline);
@@ -194,41 +215,47 @@ button {
 .header-inner {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 var(--gutter);
-  height: 68px;
+  padding: 0 var(--gutter); /* Unified container axis matching hero overture-grid */
+  height: 72px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
 .brand-name {
   font-family: var(--font-body);
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.35em;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--ink);
 }
 
 .header-nav {
   display: flex;
-  gap: 2.5rem;
+  gap: 2.25rem;
 }
 
 .nav-link {
   font-family: var(--font-body);
-  font-size: 0.7rem;
+  font-size: var(--text-xs);
   font-weight: 400;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--muted);
   position: relative;
+  padding: 0.5rem 0;
 }
 
 .nav-link::after {
   content: '';
   position: absolute;
-  bottom: -4px;
+  bottom: 0;
   left: 0;
   width: 0;
   height: 1px;
@@ -244,23 +271,29 @@ button {
   width: 100%;
 }
 
+/* Ghost Header CTA (Issue 6: Title case, Issue 22: Secondary ghost button) */
 .nav-cta {
   font-family: var(--font-body);
-  font-size: 0.65rem;
-  font-weight: 400;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--canvas);
-  background: var(--ink);
-  padding: 0.7rem 1.5rem;
-  border: 1px solid var(--ink);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: none; /* No long all-caps */
+  padding: 0.65rem 1.4rem;
+  border-radius: 1px;
   transition: background var(--duration-fast) var(--ease-out),
-              color var(--duration-fast) var(--ease-out);
+              color var(--duration-fast) var(--ease-out),
+              border-color var(--duration-fast) var(--ease-out);
 }
 
-.nav-cta:hover {
+.nav-cta-outline {
   background: transparent;
   color: var(--ink);
+  border: 1px solid var(--ink);
+}
+
+.nav-cta-outline:hover {
+  background: var(--ink);
+  color: var(--canvas);
 }
 
 /* Mobile Menu Button */
@@ -288,7 +321,7 @@ button {
   transform: translateY(-3.5px) rotate(-45deg);
 }
 
-/* Mobile Menu */
+/* Mobile Menu Drawer */
 .mobile-menu {
   position: fixed;
   inset: 0;
@@ -317,7 +350,7 @@ button {
 
 .mobile-nav-link {
   font-family: var(--font-display);
-  font-size: 2rem;
+  font-size: var(--text-xl);
   font-weight: 400;
   color: var(--ink);
   letter-spacing: 0.02em;
@@ -332,9 +365,9 @@ button {
 
 .mobile-nav-cta {
   font-family: var(--font-body);
-  font-size: 0.7rem;
-  font-weight: 400;
-  letter-spacing: 0.15em;
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--canvas);
   background: var(--ink);
@@ -343,26 +376,27 @@ button {
 
 .mobile-menu-contact {
   text-align: center;
-  font-size: 0.8rem;
+  font-size: var(--text-sm);
   color: var(--muted);
   line-height: 2;
   margin-top: 1rem;
 }
 
-/* ═══ BUTTONS ═══ */
+/* ═══ BUTTONS (Issue 7: Font size min 12px) ═══ */
 .btn {
   display: inline-block;
   font-family: var(--font-body);
-  font-size: 0.65rem;
-  font-weight: 400;
-  letter-spacing: 0.2em;
+  font-size: var(--text-xs); /* 12px min */
+  font-weight: 500;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   padding: 1rem 2.25rem;
   border: 1px solid transparent;
   transition: background var(--duration-fast) var(--ease-out),
               color var(--duration-fast) var(--ease-out),
               border-color var(--duration-fast) var(--ease-out),
-              transform 0.15s var(--ease-out);
+              transform 0.2s var(--ease-out),
+              box-shadow 0.2s var(--ease-out);
   cursor: pointer;
   text-align: center;
 }
@@ -375,11 +409,14 @@ button {
   background: var(--ink);
   color: var(--canvas);
   border-color: var(--ink);
+  box-shadow: 0 4px 12px rgba(22, 18, 14, 0.08);
 }
 
 .btn-primary:hover {
   background: var(--timber);
   border-color: var(--timber);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(22, 18, 14, 0.12);
 }
 
 .btn-outline {
@@ -391,6 +428,7 @@ button {
 .btn-outline:hover {
   background: var(--ink);
   color: var(--canvas);
+  transform: translateY(-1px);
 }
 
 .btn-crimson {
@@ -398,11 +436,14 @@ button {
   color: #FFF;
   border-color: var(--crimson);
   margin-top: 1.5rem;
+  box-shadow: 0 4px 14px rgba(120, 20, 31, 0.25);
 }
 
 .btn-crimson:hover {
-  background: #8A1A23;
-  border-color: #8A1A23;
+  background: #8F1724;
+  border-color: #8F1724;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(120, 20, 31, 0.35);
 }
 
 .btn-full {
@@ -429,35 +470,37 @@ button {
 /* ═══ CHAPTER 01: OVERTURE (HERO) ═══ */
 .section-overture {
   min-height: 100dvh;
-  padding-top: 68px; /* header height */
+  padding-top: 72px; /* header height */
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: relative;
+  perspective: var(--perspective);
 }
 
 .overture-grid {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 2rem var(--gutter);
+  padding: 2.5rem var(--gutter);
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.1fr 0.9fr;
   gap: clamp(2rem, 5vw, 5rem);
   align-items: center;
 }
 
+/* Issue 1: Raised to legible 12px min */
 .overture-location {
   font-family: var(--font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.22em;
+  font-size: var(--text-xs);
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--muted);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
 .overture-headline {
   font-family: var(--font-display);
-  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-size: var(--text-3xl);
   font-weight: 400;
   line-height: 1.05;
   letter-spacing: -0.02em;
@@ -465,12 +508,12 @@ button {
 }
 
 .overture-sub {
-  font-size: 1rem;
+  font-size: var(--text-base);
   font-weight: 300;
   color: var(--muted);
-  max-width: 42ch;
+  max-width: 44ch;
   line-height: 1.7;
-  margin-bottom: 2rem;
+  margin-bottom: 2.25rem;
 }
 
 .overture-actions {
@@ -488,28 +531,34 @@ button {
 
 .patron-number {
   font-family: var(--font-display);
-  font-size: 2rem;
+  font-size: var(--text-xl);
   font-weight: 600;
   color: var(--ink);
 }
 
 .patron-label {
   font-family: var(--font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.15em;
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--muted);
 }
 
+/* 3D Perspective Hero Image */
 .overture-image {
   display: flex;
   justify-content: flex-end;
+  transform-style: preserve-3d;
 }
 
 .image-frame {
   position: relative;
   overflow: hidden;
   border: 1px solid var(--hairline);
+  background: var(--surface);
+  box-shadow: 0 25px 50px -12px rgba(22, 18, 14, 0.12);
+  transition: transform 0.8s var(--ease-out), box-shadow 0.8s var(--ease-out);
+  transform-style: preserve-3d;
 }
 
 .image-frame img {
@@ -517,6 +566,7 @@ button {
   object-fit: cover;
   width: 100%;
   max-height: 75vh;
+  transform: translateZ(0);
 }
 
 /* Scroll Hint */
@@ -540,8 +590,8 @@ button {
 
 .scroll-hint-text {
   font-family: var(--font-mono);
-  font-size: 0.55rem;
-  letter-spacing: 0.25em;
+  font-size: var(--text-xs);
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--muted);
 }
@@ -568,7 +618,7 @@ button {
 }
 
 .atelier-intro-left .section-headline {
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-size: var(--text-2xl);
 }
 
 .atelier-intro-right {
@@ -577,14 +627,14 @@ button {
 }
 
 .body-text {
-  font-size: 0.95rem;
+  font-size: var(--text-base);
   font-weight: 300;
   color: var(--muted);
   line-height: 1.8;
   max-width: 55ch;
 }
 
-/* Craft Grid */
+/* Craft Grid - Unified 3D Tiles */
 .atelier-craft-grid {
   max-width: var(--max-width);
   margin: 0 auto;
@@ -594,12 +644,16 @@ button {
   gap: 0;
   border-top: 1px solid var(--hairline);
   border-bottom: 1px solid var(--hairline);
+  perspective: var(--perspective);
 }
 
 .craft-card {
   padding: 2.5rem 2rem;
   border-right: 1px solid var(--hairline);
   position: relative;
+  background: var(--canvas);
+  transition: transform 0.4s var(--ease-out), background 0.4s var(--ease-out);
+  transform-style: preserve-3d;
 }
 
 .craft-card:last-child {
@@ -608,7 +662,7 @@ button {
 
 .craft-card-number {
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: var(--text-xs);
   letter-spacing: 0.2em;
   color: var(--muted);
   margin-bottom: 1.5rem;
@@ -616,14 +670,14 @@ button {
 
 .craft-card-title {
   font-family: var(--font-display);
-  font-size: 1.5rem;
+  font-size: var(--text-lg);
   font-weight: 500;
   margin-bottom: 1rem;
   letter-spacing: -0.01em;
 }
 
 .craft-card-desc {
-  font-size: 0.85rem;
+  font-size: var(--text-sm);
   font-weight: 300;
   color: var(--muted);
   line-height: 1.7;
@@ -634,8 +688,13 @@ button {
   bottom: 0;
   left: 2rem;
   right: 2rem;
-  height: 1px;
+  height: 2px;
   background: transparent;
+}
+
+.craft-card:hover {
+  background: var(--surface);
+  transform: translateY(-4px) translateZ(10px);
 }
 
 .craft-card:hover .craft-card-line {
@@ -653,7 +712,7 @@ button {
 
 .statement-quote p {
   font-family: var(--font-display);
-  font-size: clamp(1.25rem, 2.5vw, 2rem);
+  font-size: var(--text-lg);
   font-weight: 400;
   font-style: italic;
   line-height: 1.5;
@@ -664,7 +723,7 @@ button {
 
 .statement-cite {
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: var(--text-xs);
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--muted);
@@ -672,34 +731,38 @@ button {
   display: block;
 }
 
-/* ═══ CHAPTER 03: RUNWAY (Sticky Split-Screen) ═══ */
+/* ═══ CHAPTER 03: RUNWAY (Issue 3: Heading Clearance & 3D Stage) ═══ */
 .section-runway {
   padding: var(--section-py) 0;
   border-top: 1px solid var(--hairline);
+  position: relative;
 }
 
 .runway-header {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 0 var(--gutter);
-  margin-bottom: clamp(3rem, 6vh, 5rem);
+  margin-bottom: clamp(4rem, 8vh, 6rem); /* Issue 3: Generous spacing ensuring heading visibility */
+  position: relative;
+  z-index: 10;
 }
 
 .runway-header .section-headline {
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-size: var(--text-2xl);
   margin-bottom: 1rem;
 }
 
 .runway-subtitle {
   font-family: var(--font-body);
-  font-size: 0.95rem;
+  font-size: var(--text-base);
   font-weight: 300;
   color: var(--muted);
 }
 
-/* Runway Container */
+/* Runway Scroll Container */
 .runway-scroll-container {
   position: relative;
+  perspective: var(--perspective);
 }
 
 .runway-look {
@@ -710,7 +773,7 @@ button {
   margin: 0 auto;
   padding: 0 var(--gutter);
   align-items: center;
-  gap: clamp(2rem, 5vw, 5rem);
+  gap: clamp(2.5rem, 5vw, 5rem);
   border-bottom: 1px solid var(--hairline);
   position: relative;
 }
@@ -728,23 +791,24 @@ button {
   pointer-events: none;
 }
 
-.runway-look.in-view::before {
-  background: var(--look-canvas, transparent);
-}
-
-/* Look Stage (Left - Image) */
+/* 3D Runway Stage (Left - Image) */
 .runway-look-stage {
   position: sticky;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 15vh;
   padding: 2rem 0;
+  transform-style: preserve-3d;
+  perspective: 1000px;
 }
 
 .look-image-frame {
   overflow: hidden;
   border: 1px solid var(--hairline);
   background: var(--surface);
-  transition: background-color 0.8s var(--ease-in-out);
+  box-shadow: 0 20px 45px -15px rgba(22, 18, 14, 0.1);
+  transition: transform 0.5s var(--ease-out),
+              box-shadow 0.5s var(--ease-out),
+              background-color 0.8s var(--ease-in-out);
+  transform-style: preserve-3d;
 }
 
 .look-image-frame img {
@@ -757,8 +821,12 @@ button {
   transition: transform 0.8s var(--ease-out);
 }
 
+.runway-look:hover .look-image-frame {
+  box-shadow: 0 30px 60px -15px rgba(22, 18, 14, 0.16);
+}
+
 .runway-look:hover .look-image-frame img {
-  transform: scale(1.02);
+  transform: scale(1.03) translateZ(10px);
 }
 
 /* Look Info (Right - Details) */
@@ -768,11 +836,11 @@ button {
 
 .look-number {
   font-family: var(--font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.25em;
+  font-size: var(--text-xs);
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--muted);
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .look-number span {
@@ -781,7 +849,7 @@ button {
 
 .look-name {
   font-family: var(--font-display);
-  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  font-size: var(--text-2xl);
   font-weight: 500;
   margin-bottom: 0.5rem;
   letter-spacing: -0.01em;
@@ -789,14 +857,14 @@ button {
 
 .look-subtitle {
   font-family: var(--font-display);
-  font-size: 1rem;
+  font-size: var(--text-base);
   font-style: italic;
   color: var(--zardozi);
   margin-bottom: 1rem;
 }
 
 .look-desc {
-  font-size: 0.9rem;
+  font-size: var(--text-base);
   font-weight: 300;
   color: var(--muted);
   line-height: 1.8;
@@ -806,22 +874,22 @@ button {
 
 /* Spec Table */
 .look-specs {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.75rem;
 }
 
 .spec-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.6rem 0;
+  padding: 0.75rem 0;
   border-bottom: 1px solid var(--hairline);
-  font-size: 0.8rem;
+  font-size: var(--text-sm);
 }
 
 .spec-label {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.1em;
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--muted);
 }
@@ -831,17 +899,35 @@ button {
   color: var(--ink);
 }
 
-/* Swatches */
+/* Swatches (Issues 12 & 15: Increased size to 32px, active ring, clear interactivity) */
 .look-swatch-row {
   display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
+  gap: 0.75rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
 }
 
 .look-swatch {
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
   border: 1px solid var(--hairline);
+  border-radius: 2px;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s var(--ease-out),
+              box-shadow 0.2s var(--ease-out),
+              border-color 0.2s var(--ease-out);
+}
+
+.look-swatch:hover {
+  transform: translateY(-2px) scale(1.08);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.look-swatch.active,
+.look-swatch[aria-checked="true"] {
+  box-shadow: 0 0 0 2px var(--canvas), 0 0 0 4px var(--zardozi);
+  transform: scale(1.05);
 }
 
 /* Flagship Look Accent */
@@ -853,7 +939,7 @@ button {
   color: var(--crimson);
 }
 
-/* ═══ CHAPTER 04: ARTISANS ═══ */
+/* ═══ CHAPTER 04: ARTISANS (Issues 2, 13, 16, 17, 18) ═══ */
 .section-artisans {
   padding: var(--section-py) 0;
   border-top: 1px solid var(--hairline);
@@ -868,29 +954,27 @@ button {
 }
 
 .artisans-header .section-headline {
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-size: var(--text-2xl);
 }
 
-/* Stat Grid */
+/* Stat Grid (Issues 2, 13 & 16: Removed clashing vertical borders, clean left-alignment) */
 .artisans-grid {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 0 var(--gutter);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0;
+  gap: clamp(1.5rem, 3.5vw, 3.5rem);
   border-top: 1px solid var(--hairline);
   border-bottom: 1px solid var(--hairline);
   margin-bottom: clamp(3rem, 6vh, 5rem);
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
 }
 
 .artisan-stat {
-  padding: 2.5rem 2rem;
-  border-right: 1px solid var(--hairline);
-}
-
-.artisan-stat:last-child {
-  border-right: none;
+  padding: 0;
+  text-align: left; /* Issue 16: Ensure all stat items left-align consistently */
 }
 
 .stat-number {
@@ -900,25 +984,28 @@ button {
   color: var(--ink);
   line-height: 1;
   margin-bottom: 0.75rem;
+  text-align: left; /* Issue 16: Explicit left alignment */
 }
 
 .stat-label {
   font-family: var(--font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.2em;
+  font-size: var(--text-xs);
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--zardozi);
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
+  text-align: left;
 }
 
 .stat-desc {
-  font-size: 0.85rem;
+  font-size: var(--text-sm);
   font-weight: 300;
   color: var(--muted);
   line-height: 1.7;
+  text-align: left;
 }
 
-/* Process Timeline */
+/* Process Timeline (Issues 2, 13, 17, 18) */
 .artisans-process {
   max-width: var(--max-width);
   margin: 0 auto;
@@ -928,27 +1015,23 @@ button {
 .process-timeline {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0;
+  gap: clamp(1.5rem, 2.5vw, 2.5rem);
   border-top: 1px solid var(--hairline);
+  padding-top: 2rem;
 }
 
 .process-step {
-  padding: 2rem 1.5rem 2rem 0;
-  border-right: 1px solid var(--hairline);
+  padding: 0;
   position: relative;
-}
-
-.process-step:last-child {
-  border-right: none;
 }
 
 .process-step::before {
   content: '';
   position: absolute;
-  top: 0;
+  top: -2rem;
   left: 0;
   width: 0%;
-  height: 1px;
+  height: 2px;
   background: var(--zardozi);
   transition: width 1.2s var(--ease-out);
 }
@@ -957,30 +1040,31 @@ button {
   width: 100%;
 }
 
+/* Issue 17: Reduced vertical gap above headings */
 .process-step-num {
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: var(--text-md);
   font-style: italic;
   color: var(--zardozi);
-  margin-bottom: 1rem;
+  margin-bottom: 0.35rem; /* Tightened coupling with title */
 }
 
 .process-step-title {
   font-family: var(--font-display);
-  font-size: 1.2rem;
+  font-size: var(--text-md);
   font-weight: 500;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   letter-spacing: -0.01em;
 }
 
 .process-step-desc {
-  font-size: 0.8rem;
+  font-size: var(--text-sm);
   font-weight: 300;
   color: var(--muted);
   line-height: 1.7;
 }
 
-/* ═══ CHAPTER 05: LEDGER ═══ */
+/* ═══ CHAPTER 05: LEDGER (Issues 4, 8, 9, 19, 23, 24) ═══ */
 .section-ledger {
   padding: var(--section-py) 0;
   border-top: 1px solid var(--hairline);
@@ -996,7 +1080,7 @@ button {
 }
 
 .ledger-left .section-headline {
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-size: var(--text-2xl);
   margin-bottom: 1.5rem;
 }
 
@@ -1004,24 +1088,32 @@ button {
   margin-bottom: 2.5rem;
 }
 
-/* Form */
+/* Form (Issues 4, 19, 23) */
 .ledger-form {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+}
+
+/* Issue 19: Standardized vertical spacing between form groups */
+.form-group {
+  margin-bottom: 1.5rem;
 }
 
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
+  gap: 1.5rem;
+}
+
+.form-row .form-group {
+  margin-bottom: 1.5rem;
 }
 
 .form-label {
   display: block;
   font-family: var(--font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.18em;
+  font-size: var(--text-xs);
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--muted);
   margin-bottom: 0.5rem;
@@ -1031,13 +1123,13 @@ button {
   display: block;
   width: 100%;
   font-family: var(--font-body);
-  font-size: 0.9rem;
+  font-size: var(--text-base);
   font-weight: 300;
   color: var(--ink);
   background: transparent;
   border: none;
   border-bottom: 1px solid var(--hairline);
-  padding: 0.75rem 0;
+  padding: 0.85rem 0;
   transition: border-color var(--duration-fast) var(--ease-out);
   outline: none;
 }
@@ -1047,25 +1139,30 @@ button {
 }
 
 .form-input::placeholder {
-  color: #B5AFA5;
+  color: #A69E92;
   font-weight: 300;
+  font-size: var(--text-sm);
 }
 
+/* Issue 23: Textarea styled with single underline matching inputs */
 .form-textarea {
   resize: vertical;
-  min-height: 80px;
-  border: 1px solid var(--hairline);
-  padding: 0.75rem;
+  min-height: 70px;
+  border: none;
+  border-bottom: 1px solid var(--hairline);
+  padding: 0.85rem 0;
+  border-radius: 0;
+  background: transparent;
 }
 
 .form-textarea:focus {
-  border-color: var(--ink);
+  border-bottom-color: var(--ink);
 }
 
 .form-feedback {
   margin-top: 1rem;
   font-family: var(--font-body);
-  font-size: 0.78rem;
+  font-size: var(--text-sm);
   letter-spacing: 0.04em;
   min-height: 1.25rem;
   transition: all var(--duration-fast) var(--ease-out);
@@ -1079,7 +1176,7 @@ button {
   color: var(--crimson);
 }
 
-/* Contact Right Column */
+/* Contact Right Column (Issues 8, 9, 24) */
 .ledger-right {
   padding-top: 1rem;
 }
@@ -1088,17 +1185,19 @@ button {
   padding: 1.25rem 0;
 }
 
+/* Issue 8: Title case without long all-caps */
 .contact-block-title {
   font-family: var(--font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: none; /* Sentence/Title case */
   color: var(--muted);
   margin-bottom: 0.5rem;
 }
 
 .contact-text {
-  font-size: 0.95rem;
+  font-size: var(--text-base);
   font-weight: 300;
   line-height: 1.7;
 }
@@ -1117,38 +1216,43 @@ button {
   background: var(--hairline);
 }
 
+/* Issue 9: Removed all-caps, styled as subtle gold badge */
 .patron-badge {
   font-family: var(--font-mono);
-  font-size: 0.55rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: none;
   color: var(--zardozi);
   margin-left: 0.5rem;
+  background: rgba(156, 114, 56, 0.08);
+  padding: 0.2rem 0.5rem;
+  border-radius: 2px;
 }
 
-/* NRI Note */
+/* Issue 24: Flush left edge matching contact blocks */
 .nri-note {
   margin-top: 2rem;
-  padding: 1.5rem;
-  border: 1px solid var(--hairline);
-  background: var(--surface);
+  padding: 1.5rem 0 0 0; /* Remove horizontal indent */
+  border: none;
+  border-top: 1px solid var(--hairline);
+  background: transparent;
 }
 
 .nri-note-title {
   font-family: var(--font-display);
-  font-size: 1.1rem;
+  font-size: var(--text-md);
   font-weight: 500;
   margin-bottom: 0.5rem;
 }
 
 .nri-note-text {
-  font-size: 0.85rem;
+  font-size: var(--text-sm);
   font-weight: 300;
   color: var(--muted);
   line-height: 1.7;
 }
 
-/* ═══ FOOTER ═══ */
+/* ═══ FOOTER (Issue 10: Font size min 12px) ═══ */
 .site-footer {
   border-top: 1px solid var(--hairline);
   padding: 3rem 0 2rem;
@@ -1169,9 +1273,9 @@ button {
 
 .footer-brand-name {
   font-family: var(--font-body);
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.35em;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.32em;
   text-transform: uppercase;
   display: block;
   margin-bottom: 0.5rem;
@@ -1179,7 +1283,7 @@ button {
 
 .footer-tagline {
   font-family: var(--font-display);
-  font-size: 0.95rem;
+  font-size: var(--text-base);
   font-style: italic;
   color: var(--muted);
 }
@@ -1190,8 +1294,8 @@ button {
 }
 
 .footer-links a {
-  font-size: 0.75rem;
-  font-weight: 300;
+  font-size: var(--text-xs);
+  font-weight: 400;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--muted);
@@ -1214,14 +1318,15 @@ button {
   align-items: center;
 }
 
+/* Issue 10: Increased from 11px to 12px min */
 .footer-copy {
-  font-size: 0.7rem;
+  font-size: var(--text-xs);
   color: var(--muted);
 }
 
 .footer-craft-note {
   font-family: var(--font-display);
-  font-size: 0.8rem;
+  font-size: var(--text-sm);
   font-style: italic;
   color: var(--muted);
 }
@@ -1330,28 +1435,12 @@ button {
 
   .artisans-grid {
     grid-template-columns: 1fr;
-  }
-
-  .artisan-stat {
-    border-right: none;
-    border-bottom: 1px solid var(--hairline);
-  }
-
-  .artisan-stat:last-child {
-    border-bottom: none;
+    gap: 2rem;
   }
 
   .process-timeline {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  .process-step:nth-child(2) {
-    border-right: none;
-  }
-
-  .process-step:nth-child(1),
-  .process-step:nth-child(2) {
-    border-bottom: 1px solid var(--hairline);
+    gap: 2rem;
   }
 
   .ledger-grid {
@@ -1363,10 +1452,6 @@ button {
 @media (max-width: 640px) {
   :root {
     --section-py: clamp(3rem, 8vh, 5rem);
-  }
-
-  .overture-headline {
-    font-size: clamp(2.25rem, 10vw, 3.5rem);
   }
 
   .overture-actions {
@@ -1396,15 +1481,7 @@ button {
 
   .process-timeline {
     grid-template-columns: 1fr;
-  }
-
-  .process-step {
-    border-right: none;
-    border-bottom: 1px solid var(--hairline);
-  }
-
-  .process-step:last-child {
-    border-bottom: none;
+    gap: 2rem;
   }
 
   .footer-top {

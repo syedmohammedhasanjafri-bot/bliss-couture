@@ -1,13 +1,15 @@
 /* ════════════════════════════════════════════════════════════
-   BLISS COUTURE — Interactive Scroll Engine
+   BLISS COUTURE — Interactive Scroll & 3D Motion Engine
    Lenis Smooth Scroll + Chapter Index + Runway Observer
-   + Reveal Animations + Mobile Menu + Robust Error Handling
+   + 3D Perspective Physics + Interactive Swatches + Mobile Menu
    ════════════════════════════════════════════════════════════ */
 
 (function () {
   'use strict';
 
-  /* ═══ LENIS SMOOTH SCROLL INIT (Defensive) ═══ */
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ═══ LENIS SMOOTH SCROLL INIT ═══ */
   let lenis = null;
   if (typeof Lenis !== 'undefined') {
     try {
@@ -43,7 +45,7 @@
         if (target) {
           e.preventDefault();
           if (lenis) {
-            lenis.scrollTo(target, { offset: -68 }); // header height offset
+            lenis.scrollTo(target, { offset: -72 }); // header height offset
           } else {
             target.scrollIntoView({ behavior: 'smooth' });
           }
@@ -175,8 +177,6 @@
   });
 
   /* ═══ REVEAL ANIMATIONS (IntersectionObserver) ═══ */
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
   if (!prefersReducedMotion && 'IntersectionObserver' in window) {
     // Set line indices for staggered headline reveals
     document.querySelectorAll('.section-headline').forEach((headline) => {
@@ -224,7 +224,7 @@
     });
   }
 
-  /* ═══ RUNWAY SCROLL — Background Color Transitions ═══ */
+  /* ═══ RUNWAY SCROLL — Dynamic Palette & Background Transitions ═══ */
   const runwayLooks = document.querySelectorAll('.runway-look');
 
   if (runwayLooks.length && 'IntersectionObserver' in window) {
@@ -239,7 +239,7 @@
             // Smoothly transition page background and look stage background
             if (canvas) {
               document.body.style.backgroundColor = canvas;
-              if (header) header.style.backgroundColor = canvas + 'EA'; // with opacity
+              if (header) header.style.backgroundColor = canvas + 'F2'; // with 95% opacity
             }
 
             const frame = look.querySelector('.look-image-frame');
@@ -278,6 +278,69 @@
         { threshold: 0 }
       );
       runwayResetObserver.observe(runwaySection);
+    }
+  }
+
+  /* ═══ INTERACTIVE SWATCH CONTROLLER (Issues 12 & 15) ═══ */
+  document.querySelectorAll('.look-swatch-row').forEach((row) => {
+    const swatches = row.querySelectorAll('.look-swatch');
+    swatches.forEach((swatch) => {
+      swatch.addEventListener('click', () => {
+        swatches.forEach((s) => {
+          s.classList.remove('active');
+          s.setAttribute('aria-checked', 'false');
+        });
+
+        swatch.classList.add('active');
+        swatch.setAttribute('aria-checked', 'true');
+
+        const look = swatch.closest('.runway-look');
+        if (look) {
+          const frame = look.querySelector('.look-image-frame');
+          const swatchBg = swatch.style.backgroundColor;
+          if (frame && swatchBg) {
+            frame.style.borderColor = swatchBg;
+            frame.style.boxShadow = `0 25px 50px -10px ${swatchBg}33`;
+          }
+        }
+      });
+    });
+  });
+
+  /* ═══ 3D PERSPECTIVE & TILT PHYSICS ENGINE ═══ */
+  if (!prefersReducedMotion) {
+    // 3D Pointer-Tracking Tilt on Lookbook Frames
+    const tiltCards = document.querySelectorAll('.look-image-frame, .image-frame');
+
+    tiltCards.forEach((card) => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = ((y - centerY) / centerY) * -5; // max 5deg tilt
+        const rotateY = ((x - centerX) / centerX) * 5;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.02, 1.02, 1.02)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      });
+    });
+
+    // 3D Scroll Parallax Depth linked to Lenis Velocity
+    if (lenis) {
+      lenis.on('scroll', (e) => {
+        const velocity = Math.max(-8, Math.min(8, e.velocity || 0));
+        const tiltAngle = (velocity * 0.35).toFixed(2);
+
+        document.querySelectorAll('.runway-look.in-view .look-image-frame').forEach((frame) => {
+          frame.style.transform = `perspective(1000px) rotateX(${tiltAngle}deg)`;
+        });
+      });
     }
   }
 
