@@ -1,0 +1,56 @@
+# BLISS COUTURE — Project Design & Development Rules
+# "Luxury in its Purest Form — Crafting Timeless Bridal Dreams."
+
+## Mandatory Skill Hooks
+- @ui-ux-pro-max → all layout/token decisions
+- @humanizer → all bridal couture copy (must read like a ₹1,00,000 heritage Indian bridal couturier in Vadodara)
+- @test-lab.ai + @test + /browser → after every build phase
+
+## Mandatory Libraries
+- **Lenis** → smooth inertial scroll at <html> root + IntersectionObserver for scroll-linked runway
+- **Vanilla CSS** → editorial 12-column grid, hairline borders, sharp geometry
+- **Vanilla JS** → IntersectionObserver for scroll-driven runway, chapter index, progress bar
+
+## Strict Geometry Rules
+- ALL containers, images, buttons: `border-radius: 0` — NO rounded corners
+- ALL photography: `aspect-ratio: 4/5` (portrait) or `aspect-ratio: 16/9` (wide)
+- ALL buttons: sharp 90° rectangular with 1px borders
+- NO: rounded-xl, rounded-2xl, neon gradients, floating shadow boxes, icon-in-circle grids, pill badges, carousels
+
+## Exact Daylight Couture Palette
+```
+--canvas:           #F8F5EE   /* Warm Alabaster / Studio Mihrab Arch Ivory */
+--surface:          #EFEAE0   /* Raw Mulberry Silk / Soft Sandstone */
+--ink:              #14110F   /* Stag Crest Obsidian Charcoal */
+--muted:            #6A6359   /* Warm Stone Grey */
+--timber:           #2A1A12   /* Vadodara Studio Walnut */
+--zardozi:          #8E652E   /* Antique Zardozi Bronze */
+--crimson:          #6E141B   /* Sindoor Pheras Crimson */
+--hairline:         #DCD5C7   /* 1px dividers */
+```
+
+## Scroll-Driven Runway Dress Pigments (auto-transition on scroll)
+```
+Look 01 (Champagne Tissue Gold):   canvas #F8F5EE | stage #EFEAE0 | swatch #B89758
+Look 02 (Haldi Marigold Mirror):   canvas #F7F3E6 | stage #EDE7D5 | swatch #C99E32
+Look 03 (Rani Pink Silver Zardozi): canvas #F9F1F2 | stage #F0E4E6 | swatch #9E244B
+Look 04 (Kesariya Peach Kundan):   canvas #F9F3EC | stage #EFE6DC | swatch #C88A55
+Look 05 (Nilambari Royal Cobalt):  canvas #F0F3F8 | stage #E3E8F0 | swatch #1A3A6B
+Look 06 (Sindoor Mahal Crimson):   canvas #F8F0EF | stage #F0E2E0 | swatch #6E141B
+```
+
+## Typography
+- Display Headlines: Cormorant Garamond (serif) — justified by heritage bridal couture editorial aesthetic
+- Body/Navigation: Outfit (sans-serif) — clean, modern geometric sans
+- Accent/Specs: JetBrains Mono (monospace) — for measurement data and spec tables
+
+## Scroll Architecture
+- Top: Lenis scroll progress bar (1px height, --zardozi fill)
+- Right side: Fixed scroll chapter index (01/Overture → 05/Ledger) with 00%–100% counter
+- Sticky Split-Screen Runway: vertical scroll through 6 lehengas, left stage locks, background tint + swatch transitions
+
+## Humanizer Voice Rules
+- Write as an authentic heritage Indian bridal couturier in Vadodara
+- Use real craft terms: Adda, Zardozi, Resham, Dabka, Kundan Jaal, Chandi Zari, 24-Kali Ghera, Latkan
+- Price references in ₹ (Indian Rupees) with lakh notation
+- Avoid Western luxury buzzwords — use Gujarati/Hindi couture vocabulary

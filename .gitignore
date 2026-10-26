@@ -1,0 +1,14 @@
+# OS Metadata
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs & Environment
+*.log
+.env
+.env.local
+.vscode/
+.idea/
+
+# Node
+node_modules/
