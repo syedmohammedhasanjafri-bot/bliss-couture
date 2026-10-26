@@ -98,7 +98,7 @@
     <section class="section-overture" id="overture" data-chapter="overture">
       <div class="overture-grid">
         <div class="overture-content">
-          <p class="overture-location">Vadodara, Gujarat — Est. MMXVIII</p>
+          <p class="overture-location">Vadodara, Gujarat — Est. 1994</p>
           <h1 class="overture-headline">
             <span class="headline-line reveal-line">Luxury in its</span>
             <span class="headline-line headline-italic reveal-line">Purest Form</span>
@@ -419,6 +419,150 @@
       </div>
     </section>
 
+    <!-- ═══ INTERACTIVE 3D/AR LEHENGA CONFIGURATOR PREVIEW ═══ -->
+    <section class="section-configurator" id="configurator">
+      <div class="configurator-wrapper">
+        <div class="configurator-header">
+          <p class="configurator-eyebrow">Interactive 3D Atelier</p>
+          <h2 class="section-headline reveal-line">
+            <span class="headline-line">Bespoke 3D</span>
+            <span class="headline-line headline-italic">Configurator</span>
+          </h2>
+          <p class="configurator-subtitle reveal-fade">
+            Rotate the 24-Kali bridal silhouette in 360° space. Select couture fabric textures and artisanal embroidery tones to preview your heirloom before the first needle strikes the silk.
+          </p>
+        </div>
+
+        <div class="configurator-grid">
+          <!-- 3D Canvas Stage -->
+          <div class="configurator-canvas-stage">
+            <div class="stage-badge">
+              <span class="stage-badge-dot"></span>
+              <span>3D Realtime Atelier • 60 FPS</span>
+            </div>
+            
+            <canvas id="lehengaCanvas" class="lehenga-canvas" aria-label="Interactive 3D bridal lehenga configurator preview"></canvas>
+
+            <div class="canvas-controls-overlay">
+              <div class="drag-hint" id="canvasDragHint">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                  <path d="M7 16l-4-4m0 0l4-4m-4 4h18m-4 4l4-4m-4-4l4 4"/>
+                </svg>
+                <span>Drag to Rotate 360°</span>
+              </div>
+              <button type="button" class="btn-canvas-reset" id="btnResetView" title="Reset Camera View" aria-label="Reset View">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                  <path d="M3 3v5h5"/>
+                </svg>
+                <span>Reset</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Configurator Control Panel -->
+          <div class="configurator-panel">
+            <!-- 1. Base Fabric Selection -->
+            <div class="config-group">
+              <div class="config-label-row">
+                <span class="config-step">01</span>
+                <span class="config-title">Couture Fabric Texture</span>
+                <span class="config-selection-value" id="selectedFabricValue">Raw Silk Matka</span>
+              </div>
+              <div class="config-options-pill" role="radiogroup" aria-label="Fabric Texture">
+                <button type="button" class="pill-btn active" data-fabric="raw-silk" aria-checked="true" role="radio">
+                  <span class="pill-name">Raw Silk</span>
+                  <span class="pill-sub">Handwoven Slub Luster</span>
+                </button>
+                <button type="button" class="pill-btn" data-fabric="velvet" aria-checked="false" role="radio">
+                  <span class="pill-name">Velvet</span>
+                  <span class="pill-sub">Deep Plush Royal Nap</span>
+                </button>
+                <button type="button" class="pill-btn" data-fabric="organza" aria-checked="false" role="radio">
+                  <span class="pill-name">Organza</span>
+                  <span class="pill-sub">Airy Gossamer Sheen</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 2. Embroidery Tone Selection -->
+            <div class="config-group">
+              <div class="config-label-row">
+                <span class="config-step">02</span>
+                <span class="config-title">Artisanal Embroidery Tone</span>
+                <span class="config-selection-value" id="selectedEmbroideryValue">Zardozi Gold</span>
+              </div>
+              <div class="config-options-pill" role="radiogroup" aria-label="Embroidery Tone">
+                <button type="button" class="pill-btn active" data-embroidery="zardozi" aria-checked="true" role="radio">
+                  <span class="pill-name">Zardozi Gold</span>
+                  <span class="pill-sub">24K Wire & Dabka</span>
+                </button>
+                <button type="button" class="pill-btn" data-embroidery="resham" aria-checked="false" role="radio">
+                  <span class="pill-name">Resham</span>
+                  <span class="pill-sub">Twisted Silk Threadwork</span>
+                </button>
+                <button type="button" class="pill-btn" data-embroidery="sequin" aria-checked="false" role="radio">
+                  <span class="pill-name">Sequin</span>
+                  <span class="pill-sub">Faceted Micro-Luster</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 3. Base Hue Selection -->
+            <div class="config-group">
+              <div class="config-label-row">
+                <span class="config-step">03</span>
+                <span class="config-title">Heirloom Base Palette</span>
+                <span class="config-selection-value" id="selectedHueValue">Sindoor Crimson</span>
+              </div>
+              <div class="config-swatches-grid" role="radiogroup" aria-label="Base Color Palette">
+                <button type="button" class="hue-swatch active" style="--swatch-color: #6E141B" data-hue="#6E141B" data-name="Sindoor Crimson" aria-label="Sindoor Crimson" aria-checked="true" role="radio">
+                  <span class="swatch-check"></span>
+                  <span class="swatch-tooltip">Sindoor Crimson</span>
+                </button>
+                <button type="button" class="hue-swatch" style="--swatch-color: #C99E32" data-hue="#C99E32" data-name="Haldi Gold" aria-label="Haldi Gold" aria-checked="false" role="radio">
+                  <span class="swatch-check"></span>
+                  <span class="swatch-tooltip">Haldi Gold</span>
+                </button>
+                <button type="button" class="hue-swatch" style="--swatch-color: #9E244B" data-hue="#9E244B" data-name="Rani Pink" aria-label="Rani Pink" aria-checked="false" role="radio">
+                  <span class="swatch-check"></span>
+                  <span class="swatch-tooltip">Rani Pink</span>
+                </button>
+                <button type="button" class="hue-swatch" style="--swatch-color: #1A3A6B" data-hue="#1A3A6B" data-name="Nilambari Cobalt" aria-label="Nilambari Cobalt" aria-checked="false" role="radio">
+                  <span class="swatch-check"></span>
+                  <span class="swatch-tooltip">Nilambari Cobalt</span>
+                </button>
+                <button type="button" class="hue-swatch" style="--swatch-color: #B89758" data-hue="#B89758" data-name="Champagne Tissue" aria-label="Champagne Tissue" aria-checked="false" role="radio">
+                  <span class="swatch-check"></span>
+                  <span class="swatch-tooltip">Champagne Tissue</span>
+                </button>
+                <button type="button" class="hue-swatch" style="--swatch-color: #1C3F30" data-hue="#1C3F30" data-name="Emerald Velvet" aria-label="Emerald Velvet" aria-checked="false" role="radio">
+                  <span class="swatch-check"></span>
+                  <span class="swatch-tooltip">Emerald Velvet</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Live Specification Summary & WhatsApp CTA -->
+            <div class="config-summary-card">
+              <div class="summary-header">
+                <span class="summary-title">Bespoke Configuration Spec</span>
+                <span class="summary-id" id="configSpecCode">BC-RAW-ZAR-24K</span>
+              </div>
+              <p class="summary-desc" id="configSummaryText">
+                Sindoor Crimson bespoke bridal lehenga in Raw Silk Matka with 24-Kali hand-fluted ghera and Zardozi Gold artisanal embroidery.
+              </p>
+              <div class="config-actions">
+                <a href="https://wa.me/919099773181?text=Namaste%20Bliss%20Couture,%20I%20have%20designed%20a%20bespoke%20lehenga%20on%20your%203D%20Configurator" class="btn btn-primary btn-full" id="configConsultBtn" target="_blank" rel="noopener noreferrer">
+                  Commission This Custom Silhouette
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ═══ CHAPTER 04: ARTISANS ═══ -->
     <section class="section-artisans" id="artisans" data-chapter="artisans">
       <div class="artisans-header">
@@ -574,7 +718,7 @@
       </div>
       <div class="footer-divider"></div>
       <div class="footer-bottom">
-        <p class="footer-copy">&copy; 2024 Bliss Couture. Vadodara, Gujarat. All rights reserved.</p>
+        <p class="footer-copy">&copy; 1994–2026 Bliss Couture. Vadodara, Gujarat — Est. 1994. All rights reserved.</p>
         <p class="footer-craft-note">Handcrafted with the same devotion we pour into every stitch.</p>
       </div>
     </div>
@@ -583,5 +727,8 @@
   <!-- Lenis Smooth Scroll CDN & Interactive Engine -->
   <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
   <script src="script.js"></script>
+  <!-- Three.js 3D WebGL Engine & Bespoke Lehenga Configurator -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="lehenga-configurator.js"></script>
 </body>
 </html>
